@@ -19,17 +19,21 @@ struct StateMachine {
 };
 
 const StateMachine ManyAandB_or_AndC_FollowedByD{
-    // Hard coded match for (A*B+AC)D
+    // Hard coded match for (A*B+AC)D (page 299)
     .ch = {" A B  ACD "}
     ,.next1 = {5,2,3,4,8,6,7,8,9,0}
     ,.next2 = {5,2,1,4,8,2,7,8,9,0}
 };
 
 const StateMachine Exersice2And3{
-    // Hard coded match for (A+B)* + C
-    .ch = {"   AB C  "}
-    ,.next1 = {1,2,3,5,5,2,7,8,0}
-    ,.next2 = {1,6,4,5,5,7,7,8,0}
+    // Hard coded match for (A+B)* + C (exersice 2 and 3)
+    // state: 0  1  2  3  4  5  6  7
+    //    ch:          A  B     C
+    // next1: 1  2  5  2  1  3  7  0
+    // next2: 1  2  6  2  1  4  7  0
+    .ch = {"   AB C "}
+    ,.next1 = {1,2,5,2,1,3,7,0}
+    ,.next2 = {1,2,6,2,1,4,7,0}
 };
 
 class Match {
