@@ -4,6 +4,7 @@
 #include <map>
 #include <functional>
 #include <array>
+#include <memory>
 
 void primes() {
     const int N=1000;
@@ -14,6 +15,27 @@ void primes() {
     for (int i=2;i<=N/2;i++) for (int j=2;j<N/i;j++) a[i*j] = false;
     for (int i=1;i<N;i++) if (a[i]) std::cout << " " << i;
 }
+
+class LinkedList {
+public:
+    struct Node {
+        using Link = std::shared_ptr<Node>;
+        int key;
+        Link next;
+    };
+    using Link = Node::Link;
+    LinkedList() :  head{std::make_shared<Node>()} ,z{std::make_shared<Node>()} {head->next=z;z->next=z;}
+    void deletenext(Link const& t) {t->next = t->next->next;}
+    void insertafter(int v,Link const& t) {
+        Link x{std::make_shared<Node>(v,t->next)};
+        t->next=x;
+    }
+private:
+    Node::Link head;
+    Node::Link z;
+};
+
+
 
 void chapter_3() {
     std::cout << "\nprimes"; primes();
