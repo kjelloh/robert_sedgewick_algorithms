@@ -8,6 +8,8 @@
 #include <deque>
 #include <numeric>
 
+
+// See https://en.wikipedia.org/wiki/Euclidean_algorithm for a more in depth about gcd and chineese reminder theorem
 namespace classic {
     int gcd(int u,int v) {
         do {
