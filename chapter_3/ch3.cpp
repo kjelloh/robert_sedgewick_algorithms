@@ -31,8 +31,27 @@ public:
         t->next=x;
     }
 private:
-    Node::Link head;
-    Node::Link z;
+    Link head;
+    Link z;
+};
+
+template <typename Key,int N>
+class ArrayList {
+public:
+    using Link = int;
+    ArrayList() {
+        next[head] = z;
+        next[z] = z;
+    }
+    void deletenext(Link const& t) {next[t] = next[next[t]];}
+    void insertafter(Key v,Link t) {++x;key[x]=v;next[x]=next[t];}
+
+private:
+    Link x{1}; // current "unused" (where to create "new")
+    Link head{0};
+    Link z{1};
+    std::array<Key,N> key;
+    std::array<Link,N> next;
 };
 
 
