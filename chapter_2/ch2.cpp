@@ -5,6 +5,8 @@
 #include <memory>
 #include <sstream>
 #include <algorithm>
+#include <deque>
+#include <numeric>
 
 namespace classic {
     int gcd(int u,int v) {
@@ -91,6 +93,34 @@ void exersice_5() {
     std::cout << x << " is binary " << binary(x);
 }
 
+void exersice_8() {
+    // gcd of n numbers is the accumulated gcd of reducing each number with the gcd of the prevouds numbers
+    // This can be expressed recursively as:
+    // gcd0 = n0
+    // gcd1 = gcd(gcd0,n1)
+    // gcd2 = gcd(gcd1,n2)
+    // gcdN = gcd(gcdn-1,N)
+    std::cout << "\nnumbers>";
+    std::string entry{};
+    std::getline(std::cin,entry);
+    std::deque<int> numbers{};
+    auto first=entry.begin();
+    while (first!=entry.end() and *first==' ') ++first; // skip spaces
+    auto second=first;
+    while (true) {
+        second = std::find(first,entry.end(),' ');
+        numbers.push_back(std::stoi(std::string{first,second}));
+        if (second == entry.end()) break;
+        first = second;
+        while (first!=entry.end() and *first==' ') ++first; // skip spaces
+    }
+    auto gcd0 = numbers.front(); numbers.pop_front();
+    auto gcd = std::accumulate(numbers.begin(),numbers.end(),gcd0,mod::gcd);
+    std::cout << "\ngcd of ";
+    for (auto n : numbers) std::cout << " " << n;
+    std::cout << " is " << gcd;
+}
+
 void chapter_2() {
     exersice_1();
 }
@@ -105,6 +135,7 @@ int main(int argc,char* argv[]) {
          ,{3,{"exersice 3 - numerator/denominator reduce with gcd",exersice_3}}
          ,{4,{"exersice 4 - convert decimal digits to int",exersice_4}}
          ,{5,{"exersice 5 - convert int to binary",exersice_5}}
+         ,{8,{"exersice 8 - gcd of multipple integers",exersice_8}}
     };
     int exersice{0};
     if (argc==2) {
