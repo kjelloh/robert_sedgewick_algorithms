@@ -54,8 +54,6 @@ private:
     std::array<Link,N> next;
 };
 
-
-
 void chapter_3() {
     std::cout << "\nprimes"; primes();
 }
